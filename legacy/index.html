@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Keep the title and descriptions below in sync with the name and role in script.js. -->
+  <title>Aditya Ilham Pratama | Aspiring Cloud Engineer</title>
+  <meta name="description" content="Portfolio of Aditya Ilham Pratama (Tama), an aspiring cloud engineer focused on AWS, DevOps, cloud infrastructure, automation and backend systems.">
+  <meta name="author" content="Aditya Ilham Pratama">
+  <meta name="theme-color" content="#131516">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Aditya Ilham Pratama | Aspiring Cloud Engineer">
+  <meta property="og:description" content="Portfolio of Aditya Ilham Pratama (Tama), an aspiring cloud engineer focused on AWS, DevOps, cloud infrastructure, automation and backend systems.">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23131516'/%3E%3Cpath d='M9 11l6 5-6 5' fill='none' stroke='%2386c3a3' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Crect x='17' y='20' width='7' height='3' fill='%23e9e7e2'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="logo" id="logo" href="#top" hidden></a>
+
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+
+      <nav class="site-nav" id="site-nav" aria-label="Main">
+        <ul class="nav-links">
+          <li><a href="#top">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li data-nav="projects" hidden><a href="#projects">Projects</a></li>
+          <li data-nav="skills" hidden><a href="#skills">Skills</a></li>
+          <li data-nav="contact" hidden><a href="#contact">Contact</a></li>
+        </ul>
+        <ul class="nav-social" id="nav-social" aria-label="Social links" hidden></ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="wrap hero-inner">
+        <p class="hero-label">
+          <span class="hero-name" id="hero-name" hidden></span>
+          <span>Aspiring Cloud Engineer</span>
+        </p>
+        <h1 id="hero-title">Building and learning cloud infrastructure.</h1>
+        <p class="hero-intro" id="hero-intro">I'm interested in AWS, DevOps, infrastructure automation and backend systems.</p>
+        <p class="hero-status" id="hero-status" hidden></p>
+        <div class="cta" id="hero-cta" hidden></div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="wrap section-grid">
+        <h2 id="about-title">About</h2>
+        <div class="prose" id="about-body">
+          <p>I'm an aspiring cloud engineer. My current focus is AWS, cloud infrastructure, DevOps and automation.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title" hidden>
+      <div class="wrap section-grid">
+        <h2 id="projects-title">Projects</h2>
+        <ul class="project-list" id="project-list"></ul>
+      </div>
+    </section>
+
+    <section class="section" id="skills" aria-labelledby="skills-title" hidden>
+      <div class="wrap section-grid">
+        <h2 id="skills-title">Skills</h2>
+        <dl class="skills" id="skills-list"></dl>
+      </div>
+    </section>
+
+    <section class="section" id="contact" aria-labelledby="contact-title" hidden>
+      <div class="wrap section-grid">
+        <h2 id="contact-title">Contact</h2>
+        <div>
+          <p class="prose contact-text">If you want to talk about cloud, DevOps or a project, get in touch.</p>
+          <ul class="contact-links" id="contact-links"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <p id="footer-text"></p>
+      <ul class="footer-social" id="footer-social" aria-label="Social links" hidden></ul>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
