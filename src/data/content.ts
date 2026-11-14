@@ -25,6 +25,26 @@ export const CONTENT: Content = {
 
   projects: [
     {
+      name: "Streamwise ML Platform",
+      category: "Machine Learning & Cloud",
+      thumbnail: "projects/streamwise.png",
+      description:
+        "A hybrid recommendation and streaming analytics platform. Features FastAPI inference, scikit-learn model training (TF-IDF + SVD), React dashboard, Docker containerization, and AWS infrastructure via Terraform.",
+      technologies: [
+        "Python",
+        "FastAPI",
+        "scikit-learn",
+        "React",
+        "Docker",
+        "Terraform",
+        "AWS",
+        "GitHub Actions",
+      ],
+      repositoryUrl: "https://github.com/cyctam/streamwise-cloud-ml",
+      liveDemoUrl: "https://streamwise-cloud-ml.vercel.app",
+      note: "End-to-End MLOps · Hybrid Recommender System",
+    },
+    {
       name: "NEXA Cloud Data & Analytics Platform",
       category: "Cloud & DevOps",
       thumbnail: "projects/NEXA.png", 
@@ -84,7 +104,7 @@ export const CONTENT: Content = {
         "Docker",
       ],
       repositoryUrl: "https://github.com/cyctam/mqtt-iot-pipeline",
-      liveDemoUrl: "https://https://mqtt-iot-pipeline.vercel.app/",
+      liveDemoUrl: "https://mqtt-iot-pipeline.vercel.app", 
       note: "IoT Data Pipeline · AWS Serverless Architecture",
     },
   ],
