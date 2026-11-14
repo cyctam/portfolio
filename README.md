@@ -1,15 +1,22 @@
 # Tama Portfolio
 
-Hi, I'm Aditya Ilham Pratama. Currently a vocational student diving deep into cloud infra and IaC, based in Jakarta.
+Personal portfolio of **Aditya Ilham Pratama**, a vocational student focused on Cloud Computing and DevOps Engineering, based in Jakarta, Indonesia.
 
-This is the source code for my personal portfolio site. Built with React, TypeScript, and Vite. Deployed on Cloudflare Pages.
+This portfolio showcases my technical background, areas of interest, and projects related to cloud infrastructure, automation, and software engineering.
 
-🔗 **Live:** [tamhw.pages.dev](https://tamhw.pages.dev)
+**Live Portfolio:** https://tamhw.pages.dev
 
-### What's inside?
-Just my profile, the stuff I'm currently learning Cloud, DevOps, Backend, and the projects I've been working on. Mostly poking around AWS, Terraform, and automation. Big on clean config and knowing how things actually work under the hood.
+## Tech Stack
 
+- React
+- TypeScript
+- Vite
+- Cloudflare Pages
 
-## Editing projects
+## Featured Areas
 
-Projects live in `src/data/content.ts` under `projects`. Each one takes `name`, `category`, `description`, `thumbnail`, `technologies`, `repositoryUrl` and `liveDemoUrl` (plus an optional `note`). Put screenshots in `public/projects/` and set `thumbnail: "projects/file.png"` (16:9 works best). An empty thumbnail shows a placeholder, and an empty `repositoryUrl` or `liveDemoUrl` hides that button.
+- Cloud Infrastructure
+- DevOps & Automation
+- Infrastructure as Code (Terraform)
+- AWS Cloud Services
+- Backend Development
