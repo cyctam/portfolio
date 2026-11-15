@@ -29,7 +29,7 @@ export const CONTENT: Content = {
       category: "Machine Learning & Cloud",
       thumbnail: "projects/streamwise.png",
       description:
-        "A hybrid recommendation and streaming analytics platform. Features FastAPI inference, scikit-learn model training (TF-IDF + SVD), React dashboard, Docker containerization, and AWS infrastructure via Terraform.",
+        "A hybrid recommendation and streaming analytics platform. Features FastAPI inference, scikit-learn model training, React dashboard, Docker containerization, automated CI/CD pipelines, and AWS infrastructure via Terraform.",
       technologies: [
         "Python",
         "FastAPI",
@@ -38,7 +38,7 @@ export const CONTENT: Content = {
         "Docker",
         "Terraform",
         "AWS",
-        "GitHub Actions",
+        "CI/CD",
       ],
       repositoryUrl: "https://github.com/cyctam/streamwise-cloud-ml",
       liveDemoUrl: "https://streamwise-cloud-ml.vercel.app",
