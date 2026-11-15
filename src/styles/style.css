@@ -1532,8 +1532,9 @@ main:focus {
 }
 
 .reveal {
-  opacity: 1;
-  transform: none;
+  opacity: 1 !important;
+  transform: none !important;
+  visibility: visible !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -1857,4 +1858,22 @@ main:focus {
   }
 }
 
+@media (max-width: 48rem) {
+  .work-list {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
 
+  .work-media {
+    aspect-ratio: 16 / 9;
+    min-height: auto;
+  }
+
+  .work-actions {
+    flex-direction: column;
+  }
+  
+  .work-actions .btn {
+    width: 100%;
+  }
+}
