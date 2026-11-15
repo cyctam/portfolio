@@ -1,7 +1,9 @@
+import { useState } from "react";
 import type { ProjectView } from "../types";
 import { ExternalLink } from "./ExternalLink";
 import { ArrowUpRight } from "./Icons";
 import { ProjectCard } from "./ProjectCard";
+import { ProjectModal } from "./ProjectModal";
 import { SectionHead } from "./SectionHead";
 
 interface ProjectsProps {
@@ -10,6 +12,8 @@ interface ProjectsProps {
 }
 
 export function Projects({ projects, github }: ProjectsProps) {
+  const [active, setActive] = useState<ProjectView | null>(null);
+
   return (
     <section className="section" id="projects" aria-labelledby="projects-title">
       <div className="wrap projects-grid">
@@ -20,8 +24,8 @@ export function Projects({ projects, github }: ProjectsProps) {
             className={`work-list work-count-${Math.min(projects.length, 3)}`}
             id="project-list"
           >
-            {projects.map((project) => (
-              <ProjectCard key={project.name} project={project} />
+            {projects.map((project, index) => (
+              <ProjectCard key={project.name} project={project} index={index} onOpen={setActive} />
             ))}
           </ul>
         ) : (
@@ -54,6 +58,8 @@ export function Projects({ projects, github }: ProjectsProps) {
           </div>
         )}
       </div>
+
+      {active && <ProjectModal project={active} onClose={() => setActive(null)} />}
     </section>
   );
 }

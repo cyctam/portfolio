@@ -776,32 +776,56 @@ main:focus {
   border-radius: 999px;
 }
 
-/* ---- Project cards ----
-   A soft panel with the preview inset inside it. The preview leads, the text
-   follows, and the buttons sit at the bottom so every card ends on the same line. */
+.work-list,
+.work-dialog {
+  --work-accent: #38bdf8;
+}
+
 .work-list {
+  --ease: cubic-bezier(0.22, 0.7, 0.2, 1);
   display: grid;
-  gap: 1.25rem;
+  gap: 1.5rem 1.25rem;
 }
 
 .work {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
-  padding: 0.5rem;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem 1.1rem;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--card);
-  overflow: hidden;
+  transition:
+    transform 450ms var(--ease),
+    border-color 300ms ease,
+    box-shadow 450ms var(--ease);
+}
+
+.work:hover,
+.work:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--line-strong);
+  box-shadow: 0 26px 44px -26px rgba(0, 0, 0, 0.9);
 }
 
 .work-media {
   position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
   aspect-ratio: 16 / 9;
-  min-height: 11rem;
   overflow: hidden;
+  isolation: isolate;
+  cursor: pointer;
+  color: inherit;
   background: #0d0d0f;
+  border: 0;
   border-radius: calc(var(--card) - 0.5rem);
+}
+
+.work-media:focus-visible {
+  outline: 2px solid var(--work-accent);
+  outline-offset: 3px;
 }
 
 .work-image,
@@ -815,6 +839,53 @@ main:focus {
 
 .work-image {
   object-fit: cover;
+  transition: transform 800ms var(--ease), filter 400ms ease;
+}
+
+/* Dark veil that fades in under the button. */
+.work-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(9, 9, 10, 0.5);
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+
+.work-view {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  padding: 0.6rem 1.4rem;
+  font: 600 0.875rem/1.2 var(--sans);
+  white-space: nowrap;
+  color: #09090a;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 14px)) scale(0.88);
+  transition:
+    opacity 300ms ease,
+    transform 450ms var(--ease);
+}
+
+.work-media:hover .work-image,
+.work-media:focus-visible .work-image {
+  transform: scale(1.08);
+}
+
+.work-media:hover::after,
+.work-media:focus-visible::after {
+  opacity: 1;
+}
+
+.work-media:hover .work-view,
+.work-media:focus-visible .work-view {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
 }
 
 /* No screenshot yet: a quiet tile built from the project's own name. */
@@ -836,34 +907,175 @@ main:focus {
   color: rgba(236, 236, 230, 0.18);
 }
 
-.work-category {
+.work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  padding: 0 0.75rem;
+}
+
+.work-meta h3 {
+  flex: 1 1 8rem;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  overflow-wrap: anywhere;
+  transition: color 300ms ease;
+}
+
+.work:hover .work-meta h3,
+.work:focus-within .work-meta h3 {
+  color: var(--work-accent);
+}
+
+.work-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.work-pills li {
+  padding: 0.2rem 0.65rem;
+  font: 400 0.7rem/1.4 var(--mono);
+  color: var(--soft);
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 300ms ease;
+}
+
+.work:hover .work-pills li {
+  border-color: var(--line-strong);
+}
+
+/* Entrance: each card rises in as it scrolls into view, staggered along the row. */
+@media (prefers-reduced-motion: no-preference) {
+  .work:not(.is-in) {
+    opacity: 0;
+  }
+
+  .work.is-in {
+    animation: work-in 800ms var(--ease) var(--delay, 0ms) backwards;
+  }
+}
+
+@keyframes work-in {
+  from {
+    opacity: 0;
+    transform: translateY(36px) scale(0.96);
+  }
+}
+
+/* ---- Details dialog ---- */
+.work-dialog {
+  width: min(44rem, calc(100% - 2rem));
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--card);
+  box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9);
+  overscroll-behavior: contain;
+}
+
+.work-dialog::backdrop {
+  background: rgba(5, 5, 6, 0.72);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .work-dialog[open] {
+    animation: dialog-in 450ms cubic-bezier(0.22, 0.7, 0.2, 1);
+  }
+
+  .work-dialog[open]::backdrop {
+    animation: dialog-fade 350ms ease;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.95);
+  }
+}
+
+@keyframes dialog-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.work-dialog-inner {
+  position: relative;
+  padding: 0.5rem;
+}
+
+.work-dialog-media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0d0d0f;
+  border-radius: calc(var(--card) - 0.5rem);
+}
+
+.work-dialog-close {
   position: absolute;
-  z-index: 1;
-  top: 0.75rem;
-  left: 0.75rem;
-  max-width: calc(100% - 1.5rem);
+  z-index: 3;
+  top: 1.1rem;
+  right: 1.1rem;
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  color: var(--text);
+  background: rgba(9, 9, 10, 0.72);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: transform 300ms ease, border-color 200ms ease;
+}
+
+.work-dialog-close:hover {
+  transform: rotate(90deg);
+  border-color: var(--work-accent);
+}
+
+.work-dialog-close:focus-visible {
+  outline: 2px solid var(--work-accent);
+  outline-offset: 2px;
+}
+
+.work-dialog-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: 1.25rem 0.9rem 0.9rem;
+}
+
+.work-category {
+  align-self: flex-start;
   margin: 0;
   padding: 0.3rem 0.75rem;
   font: 400 0.6875rem/1.3 var(--mono);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--soft);
-  background: rgba(9, 9, 10, 0.72);
   border: 1px solid var(--line-strong);
   border-radius: 999px;
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
 }
 
-.work-body {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 0.9rem;
-  padding: 1.25rem 0.9rem 0.9rem;
-}
-
-.work-body h3 {
+.work-dialog-body h3 {
   font-family: var(--display);
   font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.6rem);
   font-weight: 700;
@@ -900,11 +1112,11 @@ main:focus {
 
 .tags-more:hover {
   color: var(--text);
-  border-color: var(--signal);
+  border-color: var(--work-accent);
 }
 
 .tags-more:focus-visible {
-  outline: 2px solid var(--signal);
+  outline: 2px solid var(--work-accent);
   outline-offset: 2px;
 }
 
@@ -912,7 +1124,6 @@ main:focus {
   display: flex;
   flex-wrap: wrap;
   gap: 0.6rem;
-  margin-top: auto;
   padding-top: 0.6rem;
 }
 
@@ -934,10 +1145,9 @@ main:focus {
 }
 
 .work-actions .btn-ghost:hover {
-  border-color: var(--signal);
+  border-color: var(--work-accent);
 }
 
-/* One project: set it as a wide feature, preview left and text right. */
 @media (min-width: 40rem) {
   .work-count-2,
   .work-count-3 {
@@ -945,28 +1155,14 @@ main:focus {
   }
 }
 
-@media (min-width: 56rem) {
-  .work-count-1 .work {
-    display: grid;
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    gap: 0.5rem;
-  }
-
-  .work-count-1 .work-media {
-    aspect-ratio: auto;
-    min-height: 19rem;
-  }
-
-  .work-count-1 .work-body {
-    justify-content: center;
-    padding: 1.75rem 1.5rem 1.5rem 1.25rem;
-  }
-}
-
 @media (min-width: 64rem) {
   .work-count-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
+}
+
+.work-count-1 {
+  max-width: 30rem;
 }
 
 .empty {

@@ -1,9 +1,9 @@
 import { useState } from "react";
 import type { ProjectView } from "../types";
-import { ExternalLink } from "./ExternalLink";
-import { ArrowUpRight, Icon } from "./Icons";
+import { useInView } from "../hooks/useInView";
 
-const VISIBLE_TECH = 6;
+const CARD_TAGS = 2;
+const COLUMNS = 3;
 
 function initials(name: string): string {
   const words = name.match(/[\p{L}\p{N}]+/gu) ?? [];
@@ -14,7 +14,7 @@ function initials(name: string): string {
     .toUpperCase();
 }
 
-function Thumbnail({ name, src }: { name: string; src: string }) {
+export function Thumbnail({ name, src }: { name: string; src: string }) {
   const [failed, setFailed] = useState(false);
 
   if (src && !failed) {
@@ -39,64 +39,44 @@ function Thumbnail({ name, src }: { name: string; src: string }) {
   );
 }
 
-function TechList({ items }: { items: string[] }) {
-  const [open, setOpen] = useState(false);
-  const hidden = items.length - VISIBLE_TECH;
-  const shown = open || hidden <= 0 ? items : items.slice(0, VISIBLE_TECH);
-
-  return (
-    <ul className="tags work-tags" aria-label="Technologies">
-      {shown.map((item) => (
-        <li key={item}>{item}</li>
-      ))}
-      {hidden > 0 && (
-        <li>
-          <button
-            type="button"
-            className="tags-more"
-            aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? "Show less" : `+${hidden} more`}
-          </button>
-        </li>
-      )}
-    </ul>
-  );
+interface ProjectCardProps {
+  project: ProjectView;
+  index: number;
+  onOpen: (project: ProjectView) => void;
 }
 
-export function ProjectCard({ project }: { project: ProjectView }) {
-  const { name, category, description, thumbnail, technologies, note, repositoryUrl, liveDemoUrl } =
-    project;
+export function ProjectCard({ project, index, onOpen }: ProjectCardProps) {
+  const [ref, seen] = useInView<HTMLLIElement>();
+  const { name, thumbnail, technologies } = project;
+  const tags = technologies.slice(0, CARD_TAGS);
 
   return (
-    <li className="work">
-      <div className="work-media">
-        {category && <p className="work-category">{category}</p>}
+    <li
+      ref={ref}
+      className={`work ${seen ? "is-in" : ""}`.trim()}
+      style={{ "--delay": `${(index % COLUMNS) * 110}ms` } as React.CSSProperties}
+    >
+      <button
+        type="button"
+        className="work-media"
+        aria-haspopup="dialog"
+        aria-label={`View details of ${name}`}
+        onClick={() => onOpen(project)}
+      >
         <Thumbnail name={name} src={thumbnail} />
-      </div>
+        <span className="work-view" aria-hidden="true">
+          View Details
+        </span>
+      </button>
 
-      <div className="work-body">
+      <div className="work-meta">
         <h3>{name}</h3>
-        {description && <p className="work-desc">{description}</p>}
-        {note && <p className="work-note">{note}</p>}
-        {technologies.length > 0 && <TechList items={technologies} />}
-
-        {(repositoryUrl || liveDemoUrl) && (
-          <div className="work-actions">
-            {repositoryUrl && (
-              <ExternalLink href={repositoryUrl} className="btn btn-sm btn-ghost">
-                <Icon name="github" />
-                GitHub Repository
-              </ExternalLink>
-            )}
-            {liveDemoUrl && (
-              <ExternalLink href={liveDemoUrl} className="btn btn-sm btn-primary">
-                Live Demo
-                <ArrowUpRight />
-              </ExternalLink>
-            )}
-          </div>
+        {tags.length > 0 && (
+          <ul className="work-pills" aria-label="Main technologies">
+            {tags.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
         )}
       </div>
     </li>
